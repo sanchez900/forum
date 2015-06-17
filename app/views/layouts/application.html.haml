@@ -7,7 +7,13 @@
 	= csrf_meta_tags
 
 %body
+
 	%p.notice= notice
 	%p.alert= alert
 
-	=yield
+	.container#main-container
+		.row
+			.col-xs-3#sidebar
+				%h3 Falcon Gammming
+			.col-xs-9#main-content
+				=yield
