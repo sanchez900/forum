@@ -1,1 +1,9 @@
-%h1 this is the index page
+- @post.each do |post|
+	%h2= link_to post.title, post
+	%p
+	published at
+	= time_ago_in_words(post.created_at) 
+	%br
+	%br
+
+	= link_to "New Post", new_post_path
