@@ -14,6 +14,7 @@ gem 'haml'
 gem 'simple_form'
 gem 'devise'
 gem 'bootstrap-sass'
+gem 'responders'
 
 group :development, :test do
   gem 'byebug'

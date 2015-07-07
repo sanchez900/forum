@@ -11,12 +11,16 @@ class PostsController < ApplicationController
 	def create
 		@post = current_user.posts.build(post_params)		
 
-		if @post.save
-			flash[:success] = 'Post was successfully created.'
- 			redirect_to @post
-		else
-			flash[:danger] = 'Post not created.'
-			render 'new'
+		respond_to do |format|	
+			if @post.save
+				flash[:success] = 'Post was successfully created.'
+	 			format.html { redirect_to @post }
+	 			format.json { render :show, status: :created, location: @post }
+			else
+				flash[:danger] = 'Post not created.'
+				format.html { render 'new' }
+				format.json { render json: @post.erros, status: :unprocessable_entiy }
+			end
 		end
 	end
 
@@ -24,11 +28,17 @@ class PostsController < ApplicationController
 	end
 
 	def update
-		if @post.update(post_params)
-			flash[:success] = 'Post was successfully updated.'
-			redirect_to @post
-		else
-			render 'edit'
+
+		respond_to do |format|
+			if @post.update(post_params)
+				flash[:success] = 'Post was successfully updated.'
+				format.html { redirect_to @post }
+				format.json { render :show, status: :ok, location: @post }
+			else
+				flash[:danger] = 'there was a problem updating the post'
+				format.html { render 'edit' }
+				format.json { render json: @post.errors, status: :unprocessable_entity }
+			end
 		end
 	end
 

@@ -1,5 +1,6 @@
 
 - if user_signed_in?
+	= link_to "New Post", new_post_path
 	- @post.each do |post|
 		%h2= link_to post.title, post
 		%p
@@ -11,3 +12,14 @@
 		%br
 
 	= link_to "New Post", new_post_path
+- else
+	= link_to "New Post", new_post_path
+	- @post.each do |post|
+		%h2= link_to post.title, post
+		%p
+		published at
+		= time_ago_in_words(post.created_at) 
+		by
+		= post.user.email
+		%br
+		%br
